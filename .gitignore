@@ -42,3 +42,9 @@ android/ndk-modules/libusb-1.0/include
 android/ndk-modules/libusb-1.0/lib
 android/LibusbSupport/gen
 android/LibusbSupport/proguard-project.txt
+
+# Android extra
+!android/LibusbSupport/jni/config.h
+android/LibusbSupport/bin/
+android/LibusbSupport/obj/
+android/LibusbSupport/libs/
