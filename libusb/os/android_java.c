@@ -34,10 +34,11 @@ static jmethodID android_hardware_usb_UsbDeviceConnection_close;
 
 static jclass org_libusb_UsbHelper = NULL;
 static jmethodID org_libusb_UsbHelper_openDevice;
+static jmethodID org_libusb_UsbHelper_getStackTraceAsString;
 
 static void log_exception(JNIEnv * env, jthrowable exception, struct libusb_context *ctx, const char * function)
 {
-	jstring exc_string = (*env)->CallObjectMethod(env, exception, java_lang_Throwable_toString);
+	jstring exc_string = (*env)->CallStaticObjectMethod(env, org_libusb_UsbHelper, org_libusb_UsbHelper_getStackTraceAsString, exception);
 
 	if ((*env)->ExceptionCheck(env)) {
 		(*env)->ExceptionClear(env);
@@ -91,6 +92,10 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void * reserved)
 	org_libusb_UsbHelper_openDevice = (*env)->GetStaticMethodID(env, org_libusb_UsbHelper,
 		"openDevice", "(Ljava/lang/String;)Landroid/hardware/usb/UsbDeviceConnection;");
 	if (!org_libusb_UsbHelper_openDevice) goto cleanup;
+
+	org_libusb_UsbHelper_getStackTraceAsString = (*env)->GetStaticMethodID(env, org_libusb_UsbHelper,
+		"getStackTraceAsString", "(Ljava/lang/Throwable;)Ljava/lang/String;");
+	if (!org_libusb_UsbHelper_getStackTraceAsString) goto cleanup;
 
 	usbi_dbg("found all Java classes and IDs");
 
