@@ -1764,11 +1764,11 @@ void usbi_log_v(struct libusb_context *ctx, enum usbi_log_level level,
 
 #ifndef ENABLE_DEBUG_LOGGING
 	USBI_GET_CONTEXT(ctx);
-	if (!ctx->debug)
+	if (ctx && !ctx->debug)
 		return;
-	if (level == LOG_LEVEL_WARNING && ctx->debug < 2)
+	if (ctx && level == LOG_LEVEL_WARNING && ctx->debug < 2)
 		return;
-	if (level == LOG_LEVEL_INFO && ctx->debug < 3)
+	if (ctx && level == LOG_LEVEL_INFO && ctx->debug < 3)
 		return;
 #endif
 
