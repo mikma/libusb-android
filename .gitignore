@@ -44,6 +44,8 @@ android/LibusbSupport/gen
 android/LibusbSupport/proguard-project.txt
 
 # Android extra
+android/LibusbSupport/build.xml
+android/LibusbSupport/local.properties
 !android/LibusbSupport/jni/config.h
 android/LibusbSupport/bin/
 android/LibusbSupport/obj/
